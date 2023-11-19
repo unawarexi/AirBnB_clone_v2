@@ -4,6 +4,120 @@ This repository contains the initial stage of a student project to build a clone
 
 ---
 
+# Project README
+
+## Unit Testing in a Large Project
+
+Unit testing is a software testing technique where individual units or components of a software are tested. In a large project, implementing unit tests is crucial for maintaining code quality and ensuring that changes do not introduce new bugs.
+
+### Example using pytest:
+
+```python
+# test_module.py
+def add(x, y):
+    return x + y
+
+def test_add():
+    assert add(2, 3) == 5
+    assert add(0, 0) == 0
+    assert add(-1, 1) == 0
+```
+## *args in Python
+*args is used in a function definition to allow the passing of a variable number of non-keyword arguments.
+
+```python
+def print_args(*args):
+    for arg in args:
+        print(arg)
+
+print_args(1, 2, 3, "hello")
+```
+## **kwargs in Python
+**kwargs is used in a function definition to allow the passing of a variable number of keyword arguments.
+
+```python
+def print_kwargs(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+print_kwargs(name="John", age=25, city="Example City")
+```
+## Handling Named Arguments in a Function
+```python
+def example_function(name, age, city):
+    print(f"Name: {name}, Age: {age}, City: {city}")
+
+
+# Call the function with named arguments
+example_function(name="John", age=30, city="Example City")
+```
+
+## Creating a MySQL Database
+```sql
+CREATE DATABASE your_database_name;
+```
+
+
+## Creating a MySQL User and Granting Privileges
+```sql
+CREATE USER 'your_username'@'localhost' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON your_database_name.* TO 'your_username'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+
+## ORM (Object-Relational Mapping)
+ORM stands for Object-Relational Mapping. It is a programming technique for converting data between incompatible type systems in object-oriented programming languages.
+
+## Mapping a Python Class to a MySQL Table using SQLAlchemy
+```python
+from sqlalchemy import create_engine, Column, Integer, String, Sequence
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
+    name = Column(String(50))
+    age = Column(Integer)
+
+# Create an SQLite database in memory
+engine = create_engine('mysql://your_username:your_password@localhost/your_database_name')
+Base.metadata.create_all(engine)
+```
+
+
+## Handling 2 Different Storage Engines with the Same Codebase
+Use a configuration file to specify the storage engine, and dynamically set the engine in your code.
+
+```python
+import configparser
+from sqlalchemy import create_engine
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+engine_type = config.get('database', 'engine')
+engine = create_engine(f'{engine_type}://username:password@localhost/database')
+```
+
+## Using Environment Variables
+```python
+import os
+
+database_url = os.environ.get('DATABASE_URL')
+if database_url:
+    # Use the database_url
+else:
+    # Handle the absence of the environment variable
+```
+
+
+
+
+
 <center><h3>Repository Contents by Project Task</h3> </center>
 
 | Tasks | Files | Description |
